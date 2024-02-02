@@ -36,7 +36,7 @@ public class Arm {
     public Arm(HardwareMap hardwareMap){
         armMotor = hardwareMap.get(DcMotorEx.class, "arm");
 
-        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -55,14 +55,6 @@ public class Arm {
 
     public void moveBucketIncrementally(boolean minus) {
             setPosition(getCurrentPosition() + (minus ? -INCREMENT : INCREMENT));
-    }
-
-    private void sleepSeconds(double seconds) {
-        try {
-            Thread.sleep((long) (seconds * 1000));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public int getCurrentPosition(){
