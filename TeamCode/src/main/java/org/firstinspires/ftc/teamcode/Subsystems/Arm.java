@@ -4,17 +4,21 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
+
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class Arm {
     private DcMotorEx armMotor;
+    private IMU imu; // gyroscope IMU
 
-    // Constants for arm positions and movement
     public static final int DOWN = 0, SCORING = 0;
     public static final int INCREMENT = 5; // Increment value
     public static final double DELAY_SECONDS = 0.2; // Delay in seconds
 
     public Arm(HardwareMap hardwareMap) {
         armMotor = hardwareMap.get(DcMotorEx.class, "arm");
+        imu = hardwareMap.get(IMU.class, "imu"); // Replace "imu" with your actual IMU identifier
 
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -41,6 +45,10 @@ public class Arm {
 
     public int getTarget() {
         return armMotor.getTargetPosition();
+    }
+
+    public double getHeading() {
+        return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
     }
 
     public void update() {
