@@ -18,7 +18,7 @@ public class Arm {
 
     public Arm(HardwareMap hardwareMap) {
         armMotor = hardwareMap.get(DcMotorEx.class, "arm");
-        imu = hardwareMap.get(IMU.class, "imu"); // Replace "imu" with your actual IMU identifier
+        imu = hardwareMap.get(IMU.class, "gyro");
 
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
