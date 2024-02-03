@@ -13,15 +13,24 @@ public class RedFrontStageAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        drive.setPoseEstimate(new Pose2d(-36, -57.5, Math.toRadians(90)));
 
-        Trajectory startTraj = drive.trajectoryBuilder(new Pose2d(0,0)).lineToConstantHeading(new Vector2d(12, 27)).build(),
-                strage = drive.trajectoryBuilder(startTraj.end()).strafeLeft(12).build(),
-                door2 = drive.trajectoryBuilder(strage.end()).splineToSplineHeading(new Pose2d(48, -60), Math.toRadians(-90)).build();
+        Trajectory spike = drive.trajectoryBuilder(new Pose2d(-36, -57.5, Math.toRadians(90)))
+                .lineToConstantHeading(new Vector2d(-36, -30)).build(),
+                truss1 = drive.trajectoryBuilder(spike.end()).back(24).build(),
+                truss2 = drive.trajectoryBuilder(truss1.end()).lineToSplineHeading
+                        (new Pose2d(48, -54, Math.toRadians(90))).build(),
+                backBoard = drive.trajectoryBuilder(truss2.end().plus(
+                                new Pose2d(0,0, Math.toRadians(-90)))).strafeLeft(18)
+                        .build();
+
 
         waitForStart();
-
-        drive.followTrajectory(startTraj);
-        drive.followTrajectory(strage);
-        drive.followTrajectory(door2);
+        drive.followTrajectory(spike);
+        drive.followTrajectory(truss1);
+        drive.followTrajectory(truss2);
+        drive.turn(Math.toRadians(-90));
+        drive.followTrajectory(backBoard);
+        drive.followTrajectory(spike);
     }
 }
