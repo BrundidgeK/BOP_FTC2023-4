@@ -21,7 +21,7 @@ public class Camera {
 
     public Camera(HardwareMap hw){
         tfodProcessor = new TfodProcessor.Builder()
-                .setModelAssetName("Egg.tflite")
+                .setModelFileName("Egg.tflite")
                 .build();
 
         VisionPortal.Builder builder = new VisionPortal.Builder();

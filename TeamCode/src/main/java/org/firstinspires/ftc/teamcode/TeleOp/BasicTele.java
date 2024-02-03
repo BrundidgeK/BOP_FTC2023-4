@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.DriveEngine.MecunamDrive;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
@@ -49,8 +50,8 @@ public class BasicTele extends LinearOpMode {
                 lift.setPower(-con1.leftTrigger);
             } else if (con1.rightTriggerHeld) {
                 lift.setPower(con1.rightTrigger);
-            } else {
-                lift.setPosition(lift.getPosition(), .25
+            } else if (lift.getMode() != DcMotor.RunMode.RUN_TO_POSITION){
+                lift.setPosition(lift.getPosition(), 1
                 );
             }
             //Use this to find the position lift needs to be above ground so px can get into place without lift being in way
@@ -104,9 +105,9 @@ public class BasicTele extends LinearOpMode {
             }
 
             if (con2.leftBumperHeld) {
-                intake.intakeMotor.setPower(.5);
+                intake.intakeMotor.setPower(1);
             } else if (con2.rightBumperHeld) {
-                intake.setPower(-.5);
+                intake.setPower(-1);
             } else {
                 intake.setPower(0);
             }

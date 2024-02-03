@@ -13,8 +13,11 @@ public class BlueFrontStage extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        drive.setPoseEstimate(new Pose2d(-36, -61, Math.toRadians(90)));
 
-        Trajectory startTraj = drive.trajectoryBuilder(new Pose2d(-36,-61,Math.toRadians(90))).lineToLinearHeading(new Pose2d(-36,-34, Math.toRadians(0))).build(),
+        Trajectory startTraj = drive.trajectoryBuilder(
+                new Pose2d(-36,-61,Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(-36,-34, Math.toRadians(0))).build(),
                 strafe = drive.trajectoryBuilder(startTraj.end()).strafeLeft(24).build();
 
         waitForStart();

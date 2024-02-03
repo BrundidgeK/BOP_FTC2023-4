@@ -90,7 +90,7 @@ public class Lift {
         }
 
         if(Math.abs(getTarget() - getPosition()) <= 50){
-            lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //    lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
     }
@@ -109,6 +109,10 @@ public class Lift {
 
     public void addTargetClearance(){
         lift.setTargetPosition(lift.getTargetPosition() + 300);
+    }
+
+    public DcMotor.RunMode getMode(){
+        return lift.getMode();
     }
 
     public double getPower() {
