@@ -36,7 +36,7 @@ public class BasicTele extends LinearOpMode {
         drive = new MecunamDrive(hardwareMap);
         bucket = new Bucket(hardwareMap);
         lift = new Lift(hardwareMap);
-        arm = new Arm(hardwareMap);
+        arm = new Arm(hardwareMap, this);
         intake = new Intake(hardwareMap);
         //armClaw = new ArmAndClaw(hardwareMap);
         Suspension sus = new Suspension(hardwareMap);
@@ -76,7 +76,7 @@ public class BasicTele extends LinearOpMode {
                     left_y - left_x - right_x
             );
 
-            if (con2.aPressed) {
+            if (con1.aPressed) {
                 droneLauncher.shoot();
             }
 
@@ -98,7 +98,7 @@ public class BasicTele extends LinearOpMode {
 
 
             //Moves bucket based on current position
-            if (con1.yPressed) {
+            if (con2.yPressed) {
                 bucket.moveBucketIncrementally();
             } else {
                 bucket.setServoPosition(Bucket.close);
@@ -114,15 +114,16 @@ public class BasicTele extends LinearOpMode {
 
             if(con2.upHeld){
                 //arm.moveBucketIncrementally(false);
-                arm.setPower(-1);
+                arm.setPower(1);
             } else if (con2.downHeld){
                 //arm.moveBucketIncrementally(true);
-                arm.setPower(1);
+                arm.setPower(-1);
             } else{
                 arm.setPower(0);
             }
             telemetry.addData("Arm Position", arm.getCurrentPosition());
             telemetry.addData("Arm Target", arm.getTarget());
+            telemetry.addData("Arm Heading", arm.getHeading());
 
             //Moves claw based on current position
 
@@ -146,7 +147,7 @@ public class BasicTele extends LinearOpMode {
 
     public void intakePosition(){
         lift.setPosition(0, 1);
-        arm.setPosition(Arm.DOWN);
+        //  arm.setPosition(Arm.DOWN);
 
         arm.update();
     }

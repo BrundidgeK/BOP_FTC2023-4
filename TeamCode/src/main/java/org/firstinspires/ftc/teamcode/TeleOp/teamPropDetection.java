@@ -15,6 +15,8 @@ public class teamPropDetection extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         Camera cam = new Camera(hardwareMap);
 
+        //200
+
         waitForStart();
 
         while (opModeIsActive()) {
@@ -28,10 +30,11 @@ public class teamPropDetection extends LinearOpMode {
                 telemetry.addData("- Position", "%.0f / %.0f", x, y);
                 telemetry.addData("- Size", "%.0f x %.0f", recognition.getWidth(), recognition.getHeight());
 
-                telemetry.update();
             }
-            cam.stopStream();
+            telemetry.addData("Position spike", cam.getPosition());
+            telemetry.update();
         }
+        cam.stopStream();
 
 
     }

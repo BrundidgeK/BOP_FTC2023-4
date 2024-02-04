@@ -21,7 +21,7 @@ public class Camera {
 
     public Camera(HardwareMap hw){
         tfodProcessor = new TfodProcessor.Builder()
-                .setModelFileName("Egg.tflite")
+                .setModelFileName("BetterEgg.tflite")
                 .build();
 
         VisionPortal.Builder builder = new VisionPortal.Builder();
@@ -50,16 +50,19 @@ public class Camera {
         return recognitions;
     }
 
-    public int getPosition(String label){
-        Recognition egg = getRecognitions(label).get(0);
+    public String getPosition(){
+        List<Recognition> eggList = getRecognitions();
+        if(eggList.isEmpty()){
+            return "right";
+        }
+
+        Recognition egg = eggList.get(0);
         float xPosition = (egg.getLeft() + egg.getRight()) / 2.0f;
 
-        if(xPosition < midPos){ //left
-            return 0;
-        } else if (xPosition >= midPos && xPosition < rightPos){ //mid
-            return 1;
-        } else{ //right
-            return 2;
+        if(xPosition < 200){
+            return "left";
+        } else{
+            return "middle";
         }
     }
     
@@ -69,9 +72,5 @@ public class Camera {
 
     public void startStream(){
         visionPortal.resumeStreaming();
-        int x = getPosition("red");
-        x = getPosition("red");
-        x = getPosition("red");
-        x = getPosition("red");
     }
 }

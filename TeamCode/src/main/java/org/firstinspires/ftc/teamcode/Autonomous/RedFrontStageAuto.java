@@ -13,7 +13,7 @@ public class RedFrontStageAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        drive.setPoseEstimate(new Pose2d(-36, -57.5, Math.toRadians(90)));
+        drive.setPoseEstimate(new Pose2d(-36, -61.5, Math.toRadians(90)));
 
         Trajectory spike = drive.trajectoryBuilder(new Pose2d(-36, -57.5, Math.toRadians(90)))
                 .lineToConstantHeading(new Vector2d(-36, -30)).build(),

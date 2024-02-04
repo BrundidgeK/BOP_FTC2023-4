@@ -15,7 +15,7 @@ public class RedBackstageAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        drive.setPoseEstimate(new Pose2d(12, -57.5, Math.toRadians(90)));
+        drive.setPoseEstimate(new Pose2d(12, -61.5, Math.toRadians(90)));
 
         //Moves to the center of the spike tile
         Trajectory spike = drive.trajectoryBuilder(new Pose2d(12, -57.5, Math.toRadians(90)))
